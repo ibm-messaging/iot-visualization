@@ -18,7 +18,6 @@ var util = require('../utils/util');
 var pathSeperator ='/';
 var base_path='/api/v0001';
 var historian_path =  base_path + pathSeperator + 'historian';
-var organizations_path= base_path + pathSeperator + 'organizations';
 var getdevices_path = 'devices';
 
 
@@ -29,8 +28,9 @@ router.get('/organization', function(req, res) {
   var orgId = req.session.api_key.split('-')[1];
   console.log("Info for orgId "+orgId); 
   
-  var uri= organizations_path + pathSeperator + orgId;
+  var uri= base_path;
 
+  util.orgId = orgId;
   util.iot_httpCall(uri, req.session.api_key, req.session.auth_token, res, null, true);
   
 });
@@ -41,7 +41,8 @@ router.get('/organization/getdevices', function(req, res) {
   var orgId = req.session.api_key.split('-')[1];
   console.log("Fetching the devices for orgId "+orgId); 
   
-  var uri= organizations_path + pathSeperator + orgId + pathSeperator + getdevices_path;
+  var uri= base_path + pathSeperator + getdevices_path;
+  util.orgId = orgId;
 
   util.iot_httpCall(uri, req.session.api_key, req.session.auth_token, res);
   
@@ -56,8 +57,9 @@ router.get('/historian/:orgId', function(req, res) {
 
   console.log("Fetching the historian data for orgId "+orgId); 
   
-  var uri= historian_path + pathSeperator + orgId ;
+  var uri= historian_path;
 
+  util.orgId = orgId;
   util.iot_httpCall(uri, req.session.api_key, req.session.auth_token, res, req.query);
   
 });
@@ -70,8 +72,9 @@ router.get('/historian/:orgId/:deviceType', function(req, res) {
 
   console.log("Fetching the historian data for orgId "+orgId+" for deviceType : "+deviceType); 
   
-  var uri= historian_path + pathSeperator + orgId + pathSeperator + deviceType;
+  var uri= historian_path + pathSeperator + deviceType;
 
+  util.orgId = orgId;
   util.iot_httpCall(uri, req.session.api_key, req.session.auth_token, res, req.query);
   
 });
@@ -85,8 +88,9 @@ router.get('/historian/:orgId/:deviceType/:deviceId', function(req, res) {
 
   console.log("Fetching the historian data  for orgId "+orgId+" for device : "+deviceId);
     
-  var uri= historian_path + pathSeperator + orgId + pathSeperator + deviceType +  pathSeperator + deviceId;
+  var uri= historian_path + pathSeperator + deviceType +  pathSeperator + deviceId;
 
+  util.orgId = orgId;
   util.iot_httpCall(uri, req.session.api_key, req.session.auth_token, res, req.query);
   
 });

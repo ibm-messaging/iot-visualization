@@ -17,14 +17,16 @@ var querystring = require('querystring');
 
 //Basic HTTP options for Internet of Things Foundation
 var iot_foundation_api_options = {
-  hostname: 'internetofthings.ibmcloud.com',
   port: 443,
   rejectUnauthorized: false
 };
 
+util.orgId = null;
+
 util.iot_httpCall = function( URI, api_key, auth_token, res, queryObj, sendCred){
-  
-  iot_foundation_api_options.auth=api_key + ':' + auth_token;
+
+  iot_foundation_api_options.hostname = util.orgId+'.internetofthings.ibmcloud.com';
+  iot_foundation_api_options.auth = api_key + ':' + auth_token;
   iot_foundation_api_options.path=URI;
   if(queryObj){
     console.log("Query called with : "+querystring.stringify(queryObj)); 
