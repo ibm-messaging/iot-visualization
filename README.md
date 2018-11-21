@@ -1,6 +1,8 @@
 IOT Visualization:
 ==================
 
+[![Deploy to IBM Cloud](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/nabeelvalley/rickshaw4iot)
+
  Please refer to the [recipe] for running the application.
 
  This is a stand alone web app written on top of [node.js] to visualize IOT data.Additionally it uses the following frameworks.
